@@ -6,5 +6,6 @@ urlpatterns = patterns('',
     url(r'^user/', include('registration.backends.simple.urls')),
     url(r'^user/', include('django.contrib.auth.urls')),
     url(r'^movie/create/$', MovieCreateView.as_view(), name='movie_create'),
-    url(r'^movie/$', MovieListView.as_view(), name='movie_list'),                  
+    url(r'^movie/$', MovieListView.as_view(), name='movie_list'),
+    url(r'^movie/(?P<pk>\d+)/$', MovieDetailView.as_view(), name='movie_detail'),
 )
