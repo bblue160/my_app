@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for movie in object_list %}
+<div class="panel">
+    <h3>{{ movie.title }}</h3>
+    <p>Asked by {{ movie.user.username }} on {{ movie.created_at }}</p>
+</div>
+{% endfor %}
+{% endblock %}
