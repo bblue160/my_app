@@ -24,7 +24,7 @@ class MovieListView(ListView):
 class MovieDetailView(DetailView):
     model = Movie
     template_name = "movie/movie_detail.html"
-    
+
     def get_context_data(self, **kwargs):
         context = super(MovieDetailView, self).get_context_data(**kwargs)
         movie = Movie.objects.get(id=self.kwargs['pk'])
@@ -41,16 +41,25 @@ class MovieDeleteView(DeleteView):
     model = Movie
     template_name = 'movie/movie_confirm_delete.html'
     success_url = reverse_lazy('movie_list')
-    
+
 class ReviewCreateView(CreateView):
     model = Review
     template_name = "review/review_form.html"
     fields = ['text']
-    
+
     def get_success_url(self):
         return self.object.movie.get_absolute_url()
-      
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.movie = Movie.objects.get(id=self.kwargs['pk'])
         return super(ReviewCreateView, self).form_valid(form)
+
+class ReviewUpdateView(UpdateView):
+    model = Review
+    pk_url_kwarg = 'review_pk'
+    template_name = 'review/review_form.html'
+    fields = ['text']
+
+    def get_success_url(self):
+        return self.object.movie.get_absolute_url()
