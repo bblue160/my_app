@@ -10,7 +10,7 @@
 {% if reviews.count > 0 %}
 <h3>{{ reviews.count }} Review{{ reviews.count|pluralize }}:</h3>
 {% endif %}
-{% for reviews in reviews %}
+{% for review in reviews %}
 <div class="panel">
     <p>{{ review.text }}</p>
     <p>Reviewed by {{ review.user.username }} on {{ review.created_at }}</p>
