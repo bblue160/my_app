@@ -24,6 +24,13 @@ class MovieListView(ListView):
 class MovieDetailView(DetailView):
     model = Movie
     template_name = "movie/movie_detail.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super(MovieDetailView, self).get_context_data(**kwargs)
+        movie = Movie.objects.get(id=self.kwargs['pk'])
+        reviews = Review.objects.filter(movie=movie)
+        context['reviews'] = reviews
+        return context
 
 class MovieUpdateView(UpdateView):
     model = Movie
