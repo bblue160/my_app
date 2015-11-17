@@ -11,22 +11,23 @@ class Movie(models.Model):
 
     def __unicode__(self):
         return self.title
-      
+
     def get_absolute_url(self):
         return reverse("movie_detail", args=[self.id])
-      
+
 class Review(models.Model):
     movie = models.ForeignKey(Movie)
     user = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
     text = models.TextField()
-    
+
     def __unicode__(self):
         return self.text
-      
+
 class Vote(models.Model):
     user = models.ForeignKey(User)
-    movie = models.ForeignKey(Movie)
-    
+    movie = models.ForeignKey(Movie, blank=True, null=True)
+    review = models.ForeignKey(Review, blank=True, null=True)
+
     def __unicode__(self):
         return "%s upvoted" % (self.user.username)
