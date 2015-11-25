@@ -22,6 +22,7 @@ class MovieCreateView(CreateView):
 class MovieListView(ListView):
     model = Movie
     template_name = "movie/movie_list.html"
+    paginate_by = 5
 
 class MovieDetailView(DetailView):
     model = Movie
