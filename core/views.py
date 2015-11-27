@@ -23,6 +23,12 @@ class MovieListView(ListView):
     model = Movie
     template_name = "movie/movie_list.html"
     paginate_by = 5
+    
+    def get_context_data(self, **kwargs):
+        context = super(MovieListView, self).get_context_data(**kwargs)
+        user_votes = Movie.objects.filter(vote__user=self.request.user)
+        context['user_votes'] = user_votes
+        return context
 
 class MovieDetailView(DetailView):
     model = Movie
@@ -35,6 +41,8 @@ class MovieDetailView(DetailView):
         context['reviews'] = reviews
         user_reviews = Review.objects.filter(movie=movie, user=self.request.user)
         context['user_reviews'] = user_reviews
+        user_votes = Review.objects.filter(vote__user=self.request.user)
+        context['user_votes'] = user_votes
         return context
 
 class MovieUpdateView(UpdateView):
